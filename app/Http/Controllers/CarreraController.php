@@ -12,7 +12,7 @@ class CarreraController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages/carrera/index');
     }
 
     /**

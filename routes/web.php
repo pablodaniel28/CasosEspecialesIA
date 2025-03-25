@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\CalendarioController;
+use App\Http\Controllers\CarreraController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DirectorController;
+use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\SolicitudController;
 
 /*
@@ -28,6 +32,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');
 
     Route::resource('solicitud', SolicitudController::class);
+    Route::resource('mensaje', MensajeController::class);
+    Route::resource('director', DirectorController::class);
+    Route::resource('carrera', CarreraController::class);
+    Route::resource('calendario', CalendarioController::class);
 
     Route::fallback(function() {
         return view('pages/utility/404');

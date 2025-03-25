@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\director;
+use App\Models\calendario;
 use Illuminate\Http\Request;
 
-class DirectorController extends Controller
+class CalendarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('pages/director/index');
+        return view('pages/calendario/index');
     }
 
     /**
@@ -34,7 +34,7 @@ class DirectorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(director $director)
+    public function show(calendario $calendario)
     {
         //
     }
@@ -42,7 +42,7 @@ class DirectorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(director $director)
+    public function edit(calendario $calendario)
     {
         //
     }
@@ -50,7 +50,7 @@ class DirectorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, director $director)
+    public function update(Request $request, calendario $calendario)
     {
         //
     }
@@ -58,7 +58,7 @@ class DirectorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(director $director)
+    public function destroy(calendario $calendario)
     {
         //
     }
