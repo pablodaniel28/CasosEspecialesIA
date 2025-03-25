@@ -10,37 +10,21 @@
         @csrf
         <div class="space-y-4">
             <div>
-                <x-label for="registro" value="{{ __('Introduce tu registro universitario') }}" />
+                <x-label for="registro" value="{{ __('registro') }}" />
                 <x-input id="registro" type="number" name="registro" :value="old('registro')" required autofocus />
             </div>
             <div>
-                <x-label for="password" value="{{ __('Contraseña') }}" />
+                <x-label for="password" value="{{ __('Password') }}" />
                 <x-input id="password" type="password" name="password" required autocomplete="current-password" />
             </div>
         </div>
         <div class="flex items-center justify-between mt-6">
             <x-button class="ml-3">
-                {{ __('Inciar Sesion') }}
+                {{ __('Siguiente') }}
             </x-button>
         </div>
     </form>
     <x-validation-errors class="mt-4" />
     <!-- Footer -->
-    <!-- Footer -->
-    <div class="pt-5 mt-1 border-t border-gray-100 dark:border-gray-700/60">
-        <!-- Advertencia -->
-        <div class="mt-1">
-            <div class="bg-yellow-500/20 text-yellow-700 px-3 py-2 rounded-lg flex items-center">
-                <svg class="w-4 h-4 shrink-0 fill-current mr-2" viewBox="0 0 12 12">
-                    <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
-                </svg>
-                <span class="text-sm">
-                    Si es tu primera vez iniciando sesión, elige una contraseña de tu preferencia.
-                </span>
-            </div>
-        </div>
-    </div>
-
-
 
 </x-authentication-layout>

@@ -8,6 +8,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\VerificacionController;
+use App\Models\verificacion;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,9 @@ use App\Http\Controllers\SolicitudController;
 */
 
 Route::redirect('/', 'login');
+
+Route::get('/registrar', [VerificacionController::class, 'create'])->name('verificacion.create');
+Route::post('/verificacion', [VerificacionController::class, 'store'])->name('verificacion.store');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
