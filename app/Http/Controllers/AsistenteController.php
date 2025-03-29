@@ -12,7 +12,7 @@ class AsistenteController extends Controller
      */
     public function index()
     {
-        //
+        return view('pages/asistente/index');
     }
 
     /**
