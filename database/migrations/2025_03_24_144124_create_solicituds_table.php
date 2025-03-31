@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('gestion');
             $table->string('estado');
-            $table->foreignId('estudiante_id')->constrained('estudiantes')
+            $table->foreignId('user_id')->constrained('users')
             ->onUpdate('cascade')
             ->onDelete('cascade');
             $table->foreignId('carrera_id')->constrained('carreras')

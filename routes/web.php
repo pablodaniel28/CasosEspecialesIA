@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DirectorController;
+use App\Http\Controllers\EspecialesController;
 use App\Http\Controllers\MensajeController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\VerificacionController;
@@ -43,6 +44,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('carrera', CarreraController::class);
     Route::resource('calendario', CalendarioController::class);
     Route::resource('asistente', AsistenteController::class);
+
+
+    Route::get('/boleta/{registro}', [EspecialesController::class, 'boleta'])->name('especial.boleta');
+
 
     Route::fallback(function() {
         return view('pages/utility/404');

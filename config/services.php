@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'uagrm' => [
+        'token' => env('API_UAGRM_TOKEN'),
+        'base_url' => env('API_UAGRM_BASE_URL', 'http://localhost:8080/api/uagrm'),
+    ],
+
 ];

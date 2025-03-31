@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('directors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('nombre');
             $table->integer('codigo');
             $table->integer('celular');
             $table->foreignId('carrera_id')->constrained('carreras')

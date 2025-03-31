@@ -37,8 +37,8 @@
                     </div>
 
                     <div class="flex justify-end gap-2">
-                        <a href="{{ route('carrera.index') }}" class="px-4 py-2 text-sm bg-gray-400 dark:bg-gray-600 text-white rounded hover:bg-gray-500 dark:hover:bg-gray-700">Cancelar</a>
-                        <button type="submit" class="px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">Actualizar</button>
+                        <a href="{{ route('carrera.index') }} "class="bg-slate-400 dark:bg-slate-700 text-white px-3 py-1 text-xs rounded-lg hover:bg-slate-600 dark:hover:bg-slate-900 transition">Cancelar</a>
+                        <button type="submit" class="bg-slate-600 dark:bg-slate-700 text-white px-3 py-1 text-xs rounded-lg hover:bg-slate-600 dark:hover:bg-slate-900 transition">Actualizar</button>
                     </div>
                 </form>
             </div>

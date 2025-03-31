@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\carrera;
+use App\Models\materia;
 use App\Models\solicitud;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SolicitudController extends Controller
@@ -12,7 +15,8 @@ class SolicitudController extends Controller
      */
     public function index()
     {
-        return view('pages/solicitud/index');
+        $carreras = carrera::all();
+        return view('pages/solicitud/index',compact('carreras'));
     }
 
     /**
@@ -20,7 +24,9 @@ class SolicitudController extends Controller
      */
     public function create()
     {
-        //
+        $carreras = carrera::all();
+        $solicitudes = solicitud::all();
+        return view('pages/solicitud/lista',compact('carreras', 'solicitudes'));
     }
 
     /**
@@ -28,8 +34,45 @@ class SolicitudController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            // Validación
+            $request->validate([
+                'carrera' => 'required|exists:carreras,id',
+                'materias' => 'required|array|min:1',
+                'materias.*' => 'required|string',
+                'grupos.*' => 'required|string',
+                'siglas.*' => 'required|string',
+            ]);
+
+            // Crear la solicitud
+            $solicitud = Solicitud::create([
+                'codigo' => rand(10000, 99999),
+                'nombre' => 'activado',
+                'gestion' => now()->year,
+                'estado' => 'pendiente',
+                'user_id' => auth()->id(),
+                'carrera_id' => $request->carrera,
+            ]);
+
+            // Registrar materias asociadas
+            foreach ($request->materias as $index => $materiaNombre) {
+                Materia::create([
+                    'nombre' => $materiaNombre,
+                    'grupo' => $request->grupos[$index],
+                    'sigla' => $request->siglas[$index],
+                    'solicitud_id' => $solicitud->id,
+                ]);
+            }
+
+            return redirect()->route('solicitud.index')->with('success', 'Solicitud registrada correctamente.');
+
+        } catch (\Throwable $e) {
+            return redirect()->back()
+            ->with('error', 'Ocurrió un error al registrar la solicitud: ' . $e->getMessage())
+            ->withInput();
+        }
     }
+
 
     /**
      * Display the specified resource.

@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class materia extends Model
+class especiales extends Model
 {
     use HasFactory;
-
-    protected $fillable = ['nombre', 'grupo', 'sigla', 'solicitud_id'];
 }
