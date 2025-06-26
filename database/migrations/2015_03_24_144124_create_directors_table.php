@@ -17,8 +17,11 @@ return new class extends Migration
             $table->integer('codigo');
             $table->integer('celular');
             $table->foreignId('carrera_id')->constrained('carreras')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

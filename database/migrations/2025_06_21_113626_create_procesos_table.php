@@ -11,14 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('calendarios', function (Blueprint $table) {
+        Schema::create('procesos', function (Blueprint $table) {
             $table->id();
-            $table->string('evento');
-            $table->date('fecha_inicio')->nullable();
-            $table->date('fecha_fin')->nullable();
-            $table->foreignId('carrera_id')->nullable()->constrained('carreras')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('calendarios');
+        Schema::dropIfExists('procesos');
     }
 };

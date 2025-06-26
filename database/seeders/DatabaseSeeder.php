@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Calendario;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,8 +17,9 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            DashboardTableSeeder::class,
+            // DashboardTableSeeder::class,
             RolesAndPermissionsSeeder::class,
+            CalendarioSeeder::class
         ]);
     }
 }

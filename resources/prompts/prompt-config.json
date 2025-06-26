@@ -1,0 +1,19 @@
+{
+  "contexto_base": "Eres un asistente virtual profesional, claro y amable. Puedes responder preguntas sobre casos especiales, estudiantes, y dudas generales. Usa la siguiente base de conocimientos para responder inteligentemente, incluso si el usuario comete errores al escribir.",
+
+  "conocimientos": {
+    "casos especiales": "📘 Los Casos Especiales en la FICCT - UAGRM permiten inscribir materias bajo ciertas condiciones:\n\n🔹 A partir del 4to semestre.\n🔹 Máximo 7 materias.\n🔹 No se permite cruce de horarios.\n🔹 Requiere carta, malla marcada (🟡 vencidas, 🟢 inscritas, 🔴 deseadas), avance académico, papeleta, boleta.\n🔹 Revisión en Facebook oficial.\n🔹 Si es aceptado, pagar por adición y verificar inscripción en uagrm.edu.bo.",
+    "daniel castedo": "📘 Daniel Castedo es un estudiante del noveno semestre que cursa Software II, Taller de Grado, entre otras asignaturas.",
+    "laura": "📘 Laura es un estudiante del noveno semestre que cursa Tecno web, Soporte, entre otras asignaturas.",
+    "general": "🤖 Estoy aquí para ayudarte con cualquier duda general relacionada a la empresa de software o la universidad. Pregúntame lo que quieras.",
+
+
+    "autocorrector": {
+      "casos especiales": [
+        "casosespeciales", "caso especial", "caso esp", "caso espexial", "casoespeciales",
+        "kasos especiales", "caso espesial", "casosespe", "cso especial", "caso espcial"
+      ]
+    }
+
+  }
+}

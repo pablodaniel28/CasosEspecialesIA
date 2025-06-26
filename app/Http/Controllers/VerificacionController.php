@@ -34,12 +34,14 @@ class VerificacionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'carrera' => 'required|exists:carreras,id',
             'registro' => 'required|digits:9',
             'password' => 'required|string|min:6|max:12',
         ]);
 
         $reg = $request->input('registro');
         $password = $request->input('password');
+        $carrera_id = $request->input('carrera');
         $url = "https://caja.uagrm.edu.bo/listado.aspx?idper={$reg}&tipoper=1&sem=&anio=";
 
         try {
@@ -63,12 +65,18 @@ class VerificacionController extends Controller
                         if (!Hash::check($password, $user->password)) {
                             return redirect()->route('verificacion.create')->with('error', 'Contraseña incorrecta');
                         }
+                        // Actualizar la carrera si cambió
+                        if ($user->carrera_id !== $carrera_id) {
+                            $user->carrera_id = $carrera_id;
+                            $user->save();
+                        }
                     } else {
-                        // Si el usuario no existe, crearlo con la contraseña ingresada
+                        // Si el usuario no existe, crearlo con la contraseña y carrera ingresadas
                         $user = new User();
                         $user->registro = $reg;
-                        $user->password = Hash::make($password); // Encriptar el password
+                        $user->password = Hash::make($password);
                         $user->name = $nombre;
+                        $user->carrera_id = $carrera_id;
                         $user->save();
                     }
 

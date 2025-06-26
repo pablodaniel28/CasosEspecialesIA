@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\especiales;
+use App\Models\solicitud;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -17,6 +18,7 @@ class EspecialesController extends Controller
     {
         //
     }
+
 
     public function boleta($registro)
     {
@@ -51,6 +53,32 @@ class EspecialesController extends Controller
         } catch (\Throwable $e) {
             Log::error('Error al obtener boleta: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Ocurrió un error inesperado al generar la boleta.');
+        }
+    }
+
+
+
+    public function avance($registro)
+    {
+        try {
+            $token = config('services.uagrm.token');
+            $baseUrl = config('services.uagrm.base_url');
+
+            $response = Http::withToken($token)->get("$baseUrl/students/avance/$registro");
+
+            if (!$response->successful()) {
+                return redirect()->back()->with('error', 'No se pudo obtener el avance académico.');
+            }
+
+            $data = $response->json();
+
+            // Simulación del cálculo del PPAC
+            $ppac = round(collect($data)->pluck('note')->filter()->avg(), 2);
+
+            return view('pages.especiales.avance', compact('data', 'ppac'));
+        } catch (\Throwable $e) {
+            Log::error('Error al obtener avance académico: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Ocurrió un error inesperado al obtener el avance académico.');
         }
     }
 

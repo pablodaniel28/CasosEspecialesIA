@@ -5,6 +5,37 @@
         <div
             class="space-y-6 bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-100 dark:border-gray-800 shadow-lg">
             <div class="overflow-x-auto">
+                <div class="mb-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    {{-- Buscador por texto --}}
+                    <div class="relative w-full md:w-1/2 text-gray-700 dark:text-gray-300">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
+                                stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z">
+                                </path>
+                            </svg>
+                        </span>
+                        <input type="text" id="searchInput" placeholder="Buscar en la tabla..."
+                            class="w-full pl-10 pr-4 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                    </div>
+
+                    {{-- Filtro por estado --}}
+                    <div class="w-full md:w-1/2 flex items-center gap-2">
+                        <label for="estadoFilter"
+                            class="text-sm text-gray-700 dark:text-gray-300 whitespace-nowrap">Filtrar por
+                            estado:</label>
+                        <select id="estadoFilter"
+                            class="w-full p-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-800 dark:text-white">
+                            <option value="">Todos</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aprobado">Aprobado</option>
+                            <option value="Observado">Observado</option>
+                        </select>
+                    </div>
+                </div>
+
+
                 <table
                     class="w-full text-xs text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-700"
                     id="career-table">
@@ -42,14 +73,16 @@
                                             📄
                                         </a>
 
-                                        <!-- PDF: Carta de Solicitud -->
+                                        {{-- <!-- PDF: Carta de Solicitud -->
                                         <a title="Carta de Solicitud" href="" target="_blank"
                                             class="rounded-lg p-2 hover:scale-125 transition-transform delay-75">
                                             📨
-                                        </a>
+                                        </a> --}}
 
                                         <!-- PDF: Avance -->
-                                        <a title="Avance Académico" href="" target="_blank"
+                                        <a title="Avance Académico"
+                                            href="{{ route('especial.avance', ['registro' => $d->user->registro]) }}"
+                                            target="_blank"
                                             class="rounded-lg p-2 hover:scale-125 transition-transform delay-75">
                                             📚
                                         </a>
@@ -63,17 +96,30 @@
 
 
                                         <!-- Acción: Aprobar -->
-                                        <form action="" method="POST">
+                                        <form action="{{ route('solicitud.aprobar', $d->id) }}" method="POST">
                                             @csrf
+                                            @method('PUT')
                                             <button type="submit" title="Aprobar"
                                                 class="p-2 rounded-lg hover:scale-125 transition-transform delay-75">
                                                 ✅
                                             </button>
                                         </form>
 
-                                        <!-- Acción: Observar -->
-                                        <form action="" method="POST">
+                                        <!-- Acción: Pendiente -->
+                                        <form action="{{ route('solicitud.pendiente', $d->id) }}" method="POST">
                                             @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="estado" value="Pendiente">
+                                            <button type="submit" title="Marcar como Pendiente"
+                                                class="p-2 rounded-lg hover:scale-125 transition-transform delay-75">
+                                                ⏳
+                                            </button>
+                                        </form>
+
+                                        <!-- Acción: Observar -->
+                                        <form action="{{ route('solicitud.observar', $d->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
                                             <button type="submit" title="Observar"
                                                 class="p-2 rounded-lg hover:scale-125 transition-transform delay-75">
                                                 ❌
@@ -86,6 +132,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                
 
             </div>
         </div>
@@ -152,6 +199,44 @@
             </div>
         </form>
     </div>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#career-table tbody tr');
+
+            rows.forEach(row => {
+                let match = false;
+
+                row.querySelectorAll('td').forEach(cell => {
+                    const text = cell.textContent.toLowerCase();
+                    if (text.includes(filter)) {
+                        match = true;
+                    }
+                });
+
+                row.style.display = match ? '' : 'none';
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('estadoFilter').addEventListener('change', function() {
+            const selected = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#table-body tr');
+
+            rows.forEach(row => {
+                const estadoCell = row.querySelector(
+                    'td:nth-child(8)'); // Ajusta si la columna estado cambia
+                const estado = estadoCell?.textContent.trim().toLowerCase();
+
+                if (!selected || estado === selected) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
 
     <script>
         function openModal() {

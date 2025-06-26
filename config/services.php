@@ -36,4 +36,8 @@ return [
         'base_url' => env('API_UAGRM_BASE_URL', 'http://localhost:8080/api/uagrm'),
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+    ],
+
 ];

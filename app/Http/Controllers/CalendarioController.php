@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\calendario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarioController extends Controller
 {
@@ -12,7 +13,12 @@ class CalendarioController extends Controller
      */
     public function index()
     {
-        return view('pages/calendario/index');
+        // Obtener el ID de la carrera del usuario autenticado
+        $carreraId = auth()->user()->carrera_id;
+        // Filtrar solo los calendarios de esa carrera
+        $calendarios = Calendario::where('carrera_id', $carreraId)->get();
+
+        return view('pages.calendario.index', compact('calendarios'));
     }
 
     /**
@@ -44,15 +50,24 @@ class CalendarioController extends Controller
      */
     public function edit(calendario $calendario)
     {
-        //
+        return view('pages.calendario.edit', compact('calendario'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, calendario $calendario)
+    public function update(Request $request, Calendario $calendario)
     {
-        //
+        $request->validate([
+            'evento' => 'required|string|max:255',
+            'fecha_inicio' => 'required|date',
+            'fecha_fin' => 'required|date|after_or_equal:fecha_inicio',
+            'carrera_id' => 'required|exists:carreras,id',
+        ]);
+
+        $calendario->update($request->only('evento', 'fecha_inicio', 'fecha_fin', 'carrera_id'));
+
+        return redirect()->route('calendario.index')->with('success', 'Calendario actualizado correctamente.');
     }
 
     /**

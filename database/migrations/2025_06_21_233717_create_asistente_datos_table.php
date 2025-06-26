@@ -11,15 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('estudiantes', function (Blueprint $table) {
+        Schema::create('asistente_datos', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('registro');
-            $table->integer('ci');
-            $table->integer('celular');
-            $table->foreignId('user_id')->constrained('users')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+            $table->string('clave'); // ejemplo: nombre, edad, ciudad
+            $table->text('valor');
             $table->timestamps();
         });
     }
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('estudiantes');
+        Schema::dropIfExists('asistente_datos');
     }
 };

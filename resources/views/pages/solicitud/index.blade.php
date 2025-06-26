@@ -1,15 +1,11 @@
 <x-app-layout>
     <div class="p-6">
-        @if (session('success'))
-            <div class="mb-4 px-4 py-2 bg-green-100 text-green-800 rounded-lg text-sm shadow-md border border-green-300">
-                {{ session('success') }}
-            </div>
-        @endif
         @if (session('error'))
             <div class="mb-4 px-4 py-2 bg-red-100 text-red-800 rounded-lg text-sm shadow-md border border-red-300">
-                {{ session('error') }}
+                {!! session('error') !!}
             </div>
         @endif
+
 
         <h2 class="text-md font-semibold mb-4 text-gray-800 dark:text-white text-center">Registrar Solicitud</h2>
 
@@ -21,15 +17,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Director de Carrera -->
                 <div>
-                    <label for="carrera" class="block text-xs text-gray-700 dark:text-gray-300">Direccion de
-                        Carrera:</label>
+                    <label class="block text-xs text-gray-700 dark:text-gray-300">Dirección de Carrera:</label>
                     <select id="carrera" name="carrera"
-                        class="w-full p-2 text-xs border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500">
-                        <option value="" disabled selected>Seleccione una carrera</option>
-                        @foreach ($carreras as $c)
-                            <option value="{{ $c->id }}">{{ $c->nombre }}</option>
-                        @endforeach
+                        class="w-full p-2 text-xs border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                        disabled>
+                        <option value="{{ $carreraUsuario->id }}" selected>{{ $carreraUsuario->nombre }}</option>
                     </select>
+                    <input type="hidden" name="carrera" value="{{ $carreraUsuario->id }}">
                 </div>
             </div>
 

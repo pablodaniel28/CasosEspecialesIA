@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Solicitud::class);
     }
+
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class);
+    }
 }
